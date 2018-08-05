@@ -2,49 +2,54 @@
     display: flex;
     flex:1;
     height: 148;
+    width: 750;
     flex-direction: column;
     margin:0 65;
-    margin-top:85
+    margin-top:85;
+    justify-content:space-between;
 }
 .intro_containner{
     display: flex;
     flex-direction: row;
     flex:1;
     margin-bottom:40;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
 }
 .subject_category_containner{
-    flex:2;
+    flex:3;
+
 }
 .subject_category{
    color:rgb(103,103,250);
    height:49;
-   width: 86;
+   
    border: 1 solid rgb(103,103,250)
 }
 .subject_type{
     flex:1;
     color:rgb(254,198,130);
     border:1 solid rgb(254,198,130);
+    margin: 0 20;
 }
 .subject_scroes{
-    flex:1.5;
+    flex:1;
     color:rgb(103,103,250);
     height:49;
     width: 86;
     border: 1 solid rgba(103,103,250,0.5)
 }
 .checkbox{
-    flex:4;
+    flex:3;
 
 }
-.styles.subject_detail_containner {
+.subject_detail_containner {
     flex:1;
     display:flex;
     flex-direction: row;
+    justify-content: flex-start;
 }
-.styles.subject_name{
+.subject_name{
     flex:1
 }
 .subject_scroes{

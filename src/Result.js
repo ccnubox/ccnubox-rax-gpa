@@ -7,7 +7,7 @@ import ListView from "rax-listview";
 import data from "./api_result";
 
 // 将 item 定义成组件
-class Result extends Component {
+ class Result extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,15 +63,15 @@ class Result extends Component {
        <View style = {styles.subject_card}>
         <View style = {styles.intro_containner}>
             <View style  = {styles.subject_category_containner}>
-             <View style = {styles.subject_category}></View>
+             <View style = {styles.subject_category}>{item.course}</View>
             </View>
-             <View style = {styles.subject_type}></View>
-             <View style = {styles.subject_scroes}></View>
-             <View style = {styles.checkbox}></View>
+             <View style = {styles.subject_type}>{item.type}</View>
+             <View style = {styles.subject_scroes}>{item.grade}分</View>
+             <View style = {styles.checkbox}>checkbox</View>
         </View>
         <View style = {styles.subject_detail_containner}>
-            <View style = {styles.subject_name}></View>
-            <View style = {styles.subject_scroes}></View>
+            <View style = {styles.subject_name}>name</View>
+            <View style = {styles.subject_scroes}>scroes</View>
         </View>
        </View>
    )
@@ -118,80 +118,80 @@ class Result extends Component {
   }
 }
 
-const styles = {
-  App: {
-    backgroundColor: "rgb(239,239,244)",
-    justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden"
-  },
+// const styles = {
+//   App: {
+//     backgroundColor: "rgb(239,239,244)",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     display: "flex",
+//     flexDirection: "column",
+//     overflow: "hidden"
+//   },
 
-  book_content_containner: {
-    flex: 1,
-    backgroundColor: "rgb(255,255,255)",
-    paddingTop: 41,
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "row",
-    overflow: "hidden",
-    height: 161
-  },
-  icon_containner: {
-    flex: 1.5,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  book_icon: {
-    width: 60,
-    height: 44
-  },
-  book_info_containner: {
-    flex: 3.5,
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    flexWrap: "nowrap",
-    overflow: "hidden"
-  },
+//   book_content_containner: {
+//     flex: 1,
+//     backgroundColor: "rgb(255,255,255)",
+//     paddingTop: 41,
+//     display: "flex",
+//     justifyContent: "center",
+//     flexDirection: "row",
+//     overflow: "hidden",
+//     height: 161
+//   },
+//   icon_containner: {
+//     flex: 1.5,
+//     justifyContent: "center",
+//     alignItems: "center"
+//   },
+//   book_icon: {
+//     width: 60,
+//     height: 44
+//   },
+//   book_info_containner: {
+//     flex: 3.5,
+//     display: "flex",
+//     justifyContent: "center",
+//     flexDirection: "column",
+//     flexWrap: "nowrap",
+//     overflow: "hidden"
+//   },
 
-  book_title: {
-    fontSize: 30,
-    flex: 1,
-    fontWeight: 800,
-    flexWrap: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
-  },
-  book_owner_containner: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    overflow: "hidden"
-  },
+//   book_title: {
+//     fontSize: 30,
+//     flex: 1,
+//     fontWeight: 800,
+//     flexWrap: "nowrap",
+//     overflow: "hidden",
+//     textOverflow: "ellipsis"
+//   },
+//   book_owner_containner: {
+//     flex: 1,
+//     display: "flex",
+//     flexDirection: "row",
+//     justifyContent: "center",
+//     overflow: "hidden"
+//   },
 
-  book_author: {
-    fontSize: 26,
-    flex: 1,
-    color: "rgb(174,174,178)",
-    flexWrap: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
-  },
-  book_publisher_containner: {
-    flex: 1,
-    fontSize: 26,
-    color: "rgb(174,174,178)",
-    flexWrap: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
-  },
-  loading: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
-};
-export default ListViewDemo;
+//   book_author: {
+//     fontSize: 26,
+//     flex: 1,
+//     color: "rgb(174,174,178)",
+//     flexWrap: "nowrap",
+//     overflow: "hidden",
+//     textOverflow: "ellipsis"
+//   },
+//   book_publisher_containner: {
+//     flex: 1,
+//     fontSize: 26,
+//     color: "rgb(174,174,178)",
+//     flexWrap: "nowrap",
+//     overflow: "hidden",
+//     textOverflow: "ellipsis"
+//   },
+//   loading: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center"
+//   }
+// };
+export default Result;
