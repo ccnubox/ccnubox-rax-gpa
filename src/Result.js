@@ -59,19 +59,23 @@ import data from "./api_result";
     );
   };
   listItem = (item, index) => {
+    let categoryArr = item.category.split("");
+    let category = categoryArr[0] +  categoryArr[2];
    return (
        <View style = {styles.subject_card}>
         <View style = {styles.intro_containner}>
             <View style  = {styles.subject_category_containner}>
-             <View style = {styles.subject_category}>{item.course}</View>
-            </View>
+             <View style = {styles.subject_category}>{category}</View>
+            
              <View style = {styles.subject_type}>{item.type}</View>
-             <View style = {styles.subject_scroes}>{item.grade}分</View>
+             <View style = {styles.subject_credit}>学分{item.credit}</View>
+      </View>
              <View style = {styles.checkbox}>checkbox</View>
+             
         </View>
         <View style = {styles.subject_detail_containner}>
-            <View style = {styles.subject_name}>name</View>
-            <View style = {styles.subject_scroes}>scroes</View>
+            <View style = {styles.subject_name}>{item.course}</View>
+            <View style = {styles.subject_scroes}>成绩：{item.grade}</View>
         </View>
        </View>
    )
