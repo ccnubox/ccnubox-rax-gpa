@@ -4,7 +4,7 @@ import View from "rax-view";
 import Text from "rax-text";
 import styles from './Result.css';
 import ListView from "rax-listview";
-
+import data from "./api_result";
 
 // 将 item 定义成组件
 class Result extends Component {
@@ -13,7 +13,8 @@ class Result extends Component {
     this.state = {
       keywords: "",
       page: 1,
-      noMore: false
+      noMore: false,
+      data:data
     };
   }
   componentWillMount() {
