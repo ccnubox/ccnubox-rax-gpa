@@ -11,6 +11,7 @@
     "rax": "^0.5.4",
     "rax-animated": "^0.6.4",
     "rax-button": "^0.6.4",
+    "rax-checkbox": "^0.6.4",
     "rax-image": "^0.6.4",
     "rax-link": "^0.6.4",
     "rax-listview": "^0.6.4",

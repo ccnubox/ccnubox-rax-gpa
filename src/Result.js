@@ -5,23 +5,53 @@ import Text from "rax-text";
 import styles from './Result.css';
 import ListView from "rax-listview";
 import data from "./api_result";
-
+import CheckBox from "rax-checkbox";
+import BoxButton from "../box-ui/common/button/index"
 // 将 item 定义成组件
  class Result extends Component {
   constructor(props) {
     super(props);
+  
     this.state = {
+     
       keywords: "",
       page: 1,
       noMore: false,
-      data:data
+      data:data,
+      checkArr : data
+     
     };
   }
   componentWillMount() {
     //this._urlDeal();
     //this._getBook();
   }
-
+  checkAll(status) {
+     for(let item of this.state.checkArr) {
+       item.checked = status;
+     }
+  } 
+  checkUp() {
+    let symbol = true;
+    for(let item of this.state.checkArr) {
+      if(!item.checked) {
+        symbol = false;
+      }
+    }
+    return symbol;
+  }
+  handleChecked(info) {
+   let checkIndex = this.state.checkArr.findIndex((item)=>{
+    return item.id === info.id;
+   })
+   let checkArr = this.state.checkArr;
+   checkArr[checkIndex].checked = info.checked;
+   this.setState({checkArr})
+   this.checkAllBoxDom.target.checked = (this.checkUp())
+  }
+  handleCheckAll(info) {
+    this.checkAll(info.checked);
+  }
   //处理url，分解出参数
   _urlDeal() {
     let param = decodeURI(window.location.href).split("&");
@@ -65,18 +95,53 @@ import data from "./api_result";
        <View style = {styles.subject_card}>
         <View style = {styles.intro_containner}>
             <View style  = {styles.subject_category_containner}>
-             <View style = {styles.subject_category}>{category}</View>
+             <Text style = {styles.subject_category}>
+             
+             {category}
+             
+             </Text>
             
-             <View style = {styles.subject_type}>{item.type}</View>
-             <View style = {styles.subject_credit}>学分{item.credit}</View>
+             <Text style = {styles.subject_type}>{item.type}</Text>
+             <Text style = {styles.subject_credit}>学分{item.credit}</Text>
       </View>
-             <View style = {styles.checkbox}>checkbox</View>
+             <View style = {styles.checkbox_containner}>
+                  <CheckBox 
+                      ref = {(checkall)=>{}}
+                      style = {styles.checkbox}
+                      checkedImage = {require("../static/checked.png")}
+                      uncheckedImage = {require("../static/checkbox.png")}
+                      containerStyle={{
+                        width:49,
+                        height:49,
+                      
+                      }}
+                      onChange={(checked) => {
+                        let checkItem  = {
+                          checked:checked,
+                          id: index,
+                          name:item.course
+
+                        }
+                        this.handleChecked.bind(this,checkItem)
+                      }} />
+
+             </View>
              
         </View>
         <View style = {styles.subject_detail_containner}>
-            <View style = {styles.subject_name}>{item.course}</View>
-            <View style = {styles.subject_scroes}>成绩：{item.grade}</View>
+           
+                <Text style  = {styles.subject_name}>
+                     {item.course}
+                </Text>
+                <Text style = {styles.subject_goals}>
+                    成绩：
+                </Text>
+                <Text style = {styles.subject_scroes}>
+                  {item.grade}
+                </Text>
         </View>
+            
+        
        </View>
    )
     
@@ -117,85 +182,35 @@ import data from "./api_result";
           dataSource={this.state.data}
           onEndReached={this.handleLoadMore}
         />
-      </View>
+     <View style = {styles.footer}>
+        <CheckBox 
+        ref = {(checkBox) => {this.checkAllBoxDom =  this.checkBox}}
+        style = {styles.checkAll}
+        checkedImage = {require("../static/checked.png")}
+        uncheckedImage = {require("../static/checkbox.png")}
+        containerStyle={{
+          width:49,
+          height:49,
+        
+        }}
+        onChange={(checked) => {
+          let info  = {
+            checked:checked,
+            id: index
+          }
+          this.handleCheckAll.bind(this,info)
+        }} />
+      
+       <BoxButton style = {styles.compute_button}>计算
+        </BoxButton> 
+        </View>
+     
+      </View>  
+      
     );
   }
 }
 
-// const styles = {
-//   App: {
-//     backgroundColor: "rgb(239,239,244)",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     display: "flex",
-//     flexDirection: "column",
-//     overflow: "hidden"
-//   },
 
-//   book_content_containner: {
-//     flex: 1,
-//     backgroundColor: "rgb(255,255,255)",
-//     paddingTop: 41,
-//     display: "flex",
-//     justifyContent: "center",
-//     flexDirection: "row",
-//     overflow: "hidden",
-//     height: 161
-//   },
-//   icon_containner: {
-//     flex: 1.5,
-//     justifyContent: "center",
-//     alignItems: "center"
-//   },
-//   book_icon: {
-//     width: 60,
-//     height: 44
-//   },
-//   book_info_containner: {
-//     flex: 3.5,
-//     display: "flex",
-//     justifyContent: "center",
-//     flexDirection: "column",
-//     flexWrap: "nowrap",
-//     overflow: "hidden"
-//   },
 
-//   book_title: {
-//     fontSize: 30,
-//     flex: 1,
-//     fontWeight: 800,
-//     flexWrap: "nowrap",
-//     overflow: "hidden",
-//     textOverflow: "ellipsis"
-//   },
-//   book_owner_containner: {
-//     flex: 1,
-//     display: "flex",
-//     flexDirection: "row",
-//     justifyContent: "center",
-//     overflow: "hidden"
-//   },
-
-//   book_author: {
-//     fontSize: 26,
-//     flex: 1,
-//     color: "rgb(174,174,178)",
-//     flexWrap: "nowrap",
-//     overflow: "hidden",
-//     textOverflow: "ellipsis"
-//   },
-//   book_publisher_containner: {
-//     flex: 1,
-//     fontSize: 26,
-//     color: "rgb(174,174,178)",
-//     flexWrap: "nowrap",
-//     overflow: "hidden",
-//     textOverflow: "ellipsis"
-//   },
-//   loading: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center"
-//   }
-// };
 export default Result;

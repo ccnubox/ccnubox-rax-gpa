@@ -1,10 +1,10 @@
+
 .subject_card{
     display: flex;
     flex:1;
     height: 148;
     width: 750;
     flex-direction: column;
-   
     margin-top:85;
     justify-content:space-between;
 }
@@ -17,21 +17,29 @@
     margin-bottom:40;
     justify-content:flex-start;
     align-items:center;
+    
 }
 .subject_category_containner{
-    flex:1;
+    flex:3;
     display: flex;
     flex-direction: row;
+  
 
 }
 .subject_category{
+    font-size: 28px;
+   text-align: center;
+   line-height: 49;
    color:rgb(103,103,250);
-   height:49;
+   height:100%;
    border: 3 solid rgb(103,103,250);
    width: 89;
    margin-right: 15;
 }
 .subject_type{
+    font-size: 28px;
+    text-align: center;
+    line-height: 49;
     width: 48;
     color:rgb(254,198,130);
     border:3 solid rgb(254,198,130);
@@ -39,27 +47,55 @@
 
 }
 .subject_credit{
+    font-size: 28px;
+    text-align: center;
+    line-height: 49;
     /* flex:1; */
-    color:rgb(103,103,250);
+    color:rgba(103,103,250,0.3);
     height:49;
     /* width: 86; */
-    border: 3 solid rgba(103,103,250,0.5);
+    border: 3 solid rgba(103,103,250,0.3);
     /* margin-left: 30; */
 }
-.checkbox{
-   flex:1
+.checkbox_containner{
+   flex:1;
+  
    
+}
+.checkbox{
+    
+    
 }
 .subject_detail_containner {
     flex:1;
     display:flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-left: 40;
 }
 .subject_name{
-    flex:2
+    flex:2;
+    font-size: 28;
+}
+.subject_goals{
+    flex:0.5;
+    font-size: 28;
 }
 .subject_scroes{
+    flex:0.65;
+    font-size: 28;
+}
+.footer{
+    display: flex;
+    flex-direction: row;
+    
+}
+.checkAll {
     flex:1
 }
+.compute_button{
+    flex: 1;
+    width : 196 ; 
+    height : 77
+}
+
