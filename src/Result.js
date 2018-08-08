@@ -18,18 +18,24 @@ import BoxButton from "../box-ui/common/button/index"
       page: 1,
       noMore: false,
       data:data,
-      checkArr : data
+      checkArr : data,
+      checkAll: true,
+      weightAverage: 0
      
     };
   }
   componentWillMount() {
     //this._urlDeal();
     //this._getBook();
+    this.checkAll(true);
+    
   }
   checkAll(status) {
-     for(let item of this.state.checkArr) {
+    let newCheckArr = this.state.checkArr;
+     for(let item of newCheckArr) {
        item.checked = status;
      }
+    this.setState({checkArr:newCheckArr})
   } 
   checkUp() {
     let symbol = true;
@@ -41,16 +47,30 @@ import BoxButton from "../box-ui/common/button/index"
     return symbol;
   }
   handleChecked(info) {
-   let checkIndex = this.state.checkArr.findIndex((item)=>{
-    return item.id === info.id;
-   })
    let checkArr = this.state.checkArr;
-   checkArr[checkIndex].checked = info.checked;
+   checkArr[info.id].checked = info.checked;
    this.setState({checkArr})
-   this.checkAllBoxDom.target.checked = (this.checkUp())
+   let checkAll = this.checkUp();
+   this.setState({checkAll})
   }
   handleCheckAll(info) {
-    this.checkAll(info.checked);
+     this.checkAll(info.checked);
+  }
+  handleCompute() {
+    let checkArr = this.state.checkArr;
+    let checkedArr = checkArr.filter((subject)=>{
+      return subject.checked === true;
+    });
+    let sum  =  checkArr.reduce((accumator,subject)=>{
+        accumator += Number(subject.grade)*Number(subject.credit); 
+        return accumator;
+    },0);
+    let weight = checkArr.reduce((accumator,subject)=>{
+      accumator += Number(subject.credit); 
+      return accumator;
+     },0);
+     let weightAverage = (sum/weight).toFixed(2);
+     this.setState({weightAverage});
   }
   //处理url，分解出参数
   _urlDeal() {
@@ -94,7 +114,7 @@ import BoxButton from "../box-ui/common/button/index"
    return (
        <View style = {styles.subject_card}>
         <View style = {styles.intro_containner}>
-            <View style  = {styles.subject_category_containner}>
+          <View style  = {styles.subject_category_containner}>
              <Text style = {styles.subject_category}>
              
              {category}
@@ -103,10 +123,10 @@ import BoxButton from "../box-ui/common/button/index"
             
              <Text style = {styles.subject_type}>{item.type}</Text>
              <Text style = {styles.subject_credit}>学分{item.credit}</Text>
-      </View>
+          </View>
              <View style = {styles.checkbox_containner}>
                   <CheckBox 
-                      ref = {(checkall)=>{}}
+                      checked = {this.state.checkArr[index].checked}
                       style = {styles.checkbox}
                       checkedImage = {require("../static/checked.png")}
                       uncheckedImage = {require("../static/checkbox.png")}
@@ -118,11 +138,9 @@ import BoxButton from "../box-ui/common/button/index"
                       onChange={(checked) => {
                         let checkItem  = {
                           checked:checked,
-                          id: index,
-                          name:item.course
-
+                          id: index
                         }
-                        this.handleChecked.bind(this,checkItem)
+                        this.handleChecked(checkItem)
                       }} />
 
              </View>
@@ -175,34 +193,40 @@ import BoxButton from "../box-ui/common/button/index"
 
   render() {
     return (
+
       <View style={styles.App}>
+        
         <ListView
-          renderFooter={this.listLoading}
+          style = {styles.list}
+          // renderFooter={this.listLoading}
           renderRow={this.listItem}
           dataSource={this.state.data}
-          onEndReached={this.handleLoadMore}
+          // onEndReached={this.handleLoadMore}
         />
+        
+      
      <View style = {styles.footer}>
         <CheckBox 
-        ref = {(checkBox) => {this.checkAllBoxDom =  this.checkBox}}
-        style = {styles.checkAll}
+        checked = {this.state.checkAll}
         checkedImage = {require("../static/checked.png")}
         uncheckedImage = {require("../static/checkbox.png")}
         containerStyle={{
           width:49,
           height:49,
-        
+          marginLeft:40,
+       
+          
         }}
         onChange={(checked) => {
           let info  = {
             checked:checked,
-            id: index
           }
-          this.handleCheckAll.bind(this,info)
+          this.handleCheckAll(info)
         }} />
-      
-       <BoxButton style = {styles.compute_button}>计算
-        </BoxButton> 
+       
+        
+      <Text style = {styles.checkAllWords}>全选</Text>
+       <BoxButton style = {styles.compute_button} width = {196}  height = {77} onPress = {event => this.handleCompute} >计算</BoxButton> 
         </View>
      
       </View>  

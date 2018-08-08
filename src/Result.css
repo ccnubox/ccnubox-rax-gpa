@@ -1,11 +1,24 @@
 
+.App{
+    background-color: rgb(239,239,244);
+    /* height: 1334; */
+    flex:1;
+    
+   
+}
+.list{
+    height: 1038;
+    margin: 0 32;
+}
 .subject_card{
+    border-radius: 15 15;
+    background-color: white;
     display: flex;
     flex:1;
     height: 148;
     width: 750;
     flex-direction: column;
-    margin-top:85;
+    margin-top:40;
     justify-content:space-between;
 }
 .intro_containner{
@@ -14,27 +27,33 @@
     flex-direction: row;
     flex:1;
     margin-left: 40;
-    margin-bottom:40;
-    justify-content:flex-start;
+    /* margin-bottom:40; */
+    justify-content:center;
     align-items:center;
     
 }
+
 .subject_category_containner{
     flex:3;
     display: flex;
     flex-direction: row;
-  
+    align-items: center;
+    padding-top: 20;
+
 
 }
 .subject_category{
     font-size: 28px;
    text-align: center;
    line-height: 49;
-   color:rgb(103,103,250);
+   color:rgb(5, 5, 143);
    height:100%;
    border: 3 solid rgb(103,103,250);
    width: 89;
    margin-right: 15;
+}
+.subject_detail_containner {
+    padding-top: 15;
 }
 .subject_type{
     font-size: 28px;
@@ -59,13 +78,10 @@
 }
 .checkbox_containner{
    flex:1;
-  
+   padding-top: 20;
    
 }
-.checkbox{
-    
-    
-}
+
 .subject_detail_containner {
     flex:1;
     display:flex;
@@ -86,16 +102,18 @@
     font-size: 28;
 }
 .footer{
+    background-color:rgb(239,239,244);
     display: flex;
     flex-direction: row;
-    
+    align-items: center;
+    position: relative;
+    bottom: 104;
+    margin-top: 50;
+    padding-top: 63
+
 }
-.checkAll {
-    flex:1
-}
+
 .compute_button{
-    flex: 1;
-    width : 196 ; 
-    height : 77
+    margin-left : 400
 }
 
