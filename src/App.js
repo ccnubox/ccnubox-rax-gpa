@@ -8,7 +8,7 @@ import Link from "rax-link";
 import Touchable from "rax-touchable";
 import ScrollView from "rax-scrollview";
 import Animated from "rax-animated";
-const id = "2016210773";
+const id = "2016214322";
 var year = parseInt(id.substr(0, 4));
 
 const { View: AnimatedView } = Animated;
@@ -273,7 +273,7 @@ class App extends Component {
         <Button style={[styles.choose_box, styles.bottom_box]}>
           <Link
             href= {
-              
+              encodeURI(`./second.bundel.js/?xnm=${this.state.value}&xqm=${this.state.chooseTerm.value}`)
             }
             style={styles.white_text}
           >
