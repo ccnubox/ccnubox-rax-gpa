@@ -1,5 +1,5 @@
 import {createElement, render} from 'rax';
-import App from './App';
-
+// import result from './App.v2';
+// import App from "./Modal"
 render(<App />);
 

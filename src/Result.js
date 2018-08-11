@@ -8,6 +8,7 @@ import data from "./api_result";
 import CheckBox from "rax-checkbox";
 import BoxButton from "../box-ui/common/button/index";
 import GpaServices from "../services/Gpas";
+import GpaModal from "./Modal";
 // 将 item 定义成组件
  class Result extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ import GpaServices from "../services/Gpas";
       data:data,
       checkArr : data,
       checkAll: true,
-      weightAverage: 0
+      weightAverage: 0,
+      modalVisble:false
      
     };
   }
@@ -59,6 +61,7 @@ import GpaServices from "../services/Gpas";
      this.checkAll(info.checked);
   }
   handleCompute() {
+    this.setState({modalVisble:true})
     let checkArr = this.state.checkArr;
     let checkedArr = checkArr.filter((subject)=>{
       return subject.checked === true;
@@ -78,17 +81,17 @@ import GpaServices from "../services/Gpas";
   _urlDeal() {
     let param = decodeURI(window.location.href).split("&");
     let xnm = param[0].split("xnm=")[1];
-    let xqm = param[1].split("xqm=")[1];
+    let choise = param[1].split("choise=")[1];
     this.setState({
       xnm,
-      xqm
+      choise
     });
   }
   // 路由拉取成绩数据
   _getBook() {
     let option = {};
     option.xnm = this.state.xnm;
-    option.xqm = this.state.xqm;
+    option.xqm = "";
     option.Sid = this.state.Sid;
     option.Jsessionid = this.state.Jsessionid;
     GpaServices.getAllScores(option).then(
@@ -229,7 +232,11 @@ import GpaServices from "../services/Gpas";
        
         
       <Text style = {styles.checkAllWords}>全选</Text>
-       <BoxButton style = {styles.compute_button} width = {196}  height = {77} onPress = {event => this.handleCompute} >计算</BoxButton> 
+      <BoxButton style = {styles.compute_button} width = {196}  height = {77} onPress = {event => this.handleCompute} >计算</BoxButton> 
+      <GpaModal weightAverage = {this.state.weightAverage} visible = {this.state.modalVisble} />
+
+
+
         </View>
      
       </View>  

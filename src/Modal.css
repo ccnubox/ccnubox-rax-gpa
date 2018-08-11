@@ -1,0 +1,27 @@
+.modal_containner{
+   display: flex;
+   align-items: center;
+   /* justify-content: space-around; */
+   flex-direction: column;
+   flex:1;
+   /* margin: 0 auto; */
+   
+}
+.modal_warn_words{
+    margin-top: 66;
+    color: rgb(177,177,177);
+    font-size: 28;
+    
+}
+.modal_scroes{
+    margin-top: 20;
+    font-size: 48;
+    color:rgb(67,67,67);
+    font-weight: 700
+
+}
+.modal_ok{
+    margin-top: 90;
+    font-size: 34;
+    color: rgb(103,103,250);
+}
