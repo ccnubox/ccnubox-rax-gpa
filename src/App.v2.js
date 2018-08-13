@@ -7,7 +7,6 @@ import Button from "rax-button";
 import Link from "rax-link";
 import Touchable from "rax-touchable";
 import ScrollView from "rax-scrollview";
-import Animated from "rax-animated";
 import DropDown from "./DropDown";
 
 const id = "2016214322";
@@ -72,6 +71,49 @@ class App extends Component {
             resizeMode="contain"
           
             />
+
+                 <View>
+              <Touchable
+                onPress={this.showTermModal}
+                style={[styles.choose_box, styles.middle_box]}
+              >
+                <Text>{this.state.chooseItem}</Text>
+                <Image
+                  style={styles.down}
+                  source={require("../static/triangle_down.png")}
+                  resizeMode="cover"
+                />
+              </Touchable>
+              <View style={styles.term_list}>
+                <DropDown ref="termModal">
+                  <Image
+                    style={styles.second_triangle_up}
+                    source={require("../static/triangle_up.png")}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.dropdown_list}>
+                     {this.choise.map((text) => {
+                       return (
+                        <View
+                        style={styles.select_item}
+                        onClick={() => {
+                          this.hideTermModal(this.choise.indexOf(text));
+                        }}
+                      >
+                        <Text style={styles.item_text}>
+                          {text}
+                        </Text>
+                      </View>
+                       )
+                     })}
+                  </View>
+                </DropDown>
+               
+              </View>
+            </View>
+
+
+
 {/* sss */}
             <View>
               <Touchable
@@ -121,45 +163,7 @@ class App extends Component {
                
               </View>
 
-            <View>
-              <Touchable
-                onPress={this.showTermModal}
-                style={[styles.choose_box, styles.middle_box]}
-              >
-                <Text>{this.state.chooseItem}</Text>
-                <Image
-                  style={styles.down}
-                  source={require("../static/triangle_down.png")}
-                  resizeMode="cover"
-                />
-              </Touchable>
-              <View style={styles.term_list}>
-                <DropDown ref="termModal">
-                  <Image
-                    style={styles.second_triangle_up}
-                    source={require("../static/triangle_up.png")}
-                    resizeMode="cover"
-                  />
-                  <View style={styles.dropdown_list}>
-                     {this.choise.map((text) => {
-                       return (
-                        <View
-                        style={styles.select_item}
-                        onClick={() => {
-                          this.hideTermModal(this.choise.indexOf(text));
-                        }}
-                      >
-                        <Text style={styles.item_text}>
-                          {text}
-                        </Text>
-                      </View>
-                       )
-                     })}
-                  </View>
-                </DropDown>
-               
-              </View>
-            </View>
+     
 
             </View>
             <Button style={[styles.choose_box, styles.bottom_box]}>

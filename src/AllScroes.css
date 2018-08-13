@@ -3,23 +3,43 @@
     flex-direction: column;
     align-items:center;
     justify-content: center;
-    margin: 0 96;
+    margin: 0 56;
     background-color: rgb(239,239,244);
+    width: 630;
 }
 .all_scroes_containner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 266;
+    text-align: center;
+    width: 100%;
     margin-top: 70;
-    margin-bottom: 14
+    margin-bottom: 14;
+    background-color: white;
 }
 .all_scroes_value{
     font-size: 46;
-    color: rgb(103,103,250);
+    color: rgb(51, 51, 143);
+    font-weight: 500;
+}
+.all_name{
+    font-size: 31;
+    color:rgba(67,67,67,0.5);
 }
 .single_scroes_out_containner{
+    /* height: 100; */
+    /* flex:1; */
+    width: 630;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    background-color: white;
 }
 .single_scores_containner{
+    height: 189;
+    
     width:50%;
     display: flex;
     flex-direction: column;
@@ -34,6 +54,11 @@
 }
 .single_subject{
     margin-top: 15;
-    font-size: 23;
-    color:rgb(67,67,67);
+    font-size: 30;
+    color:rgba(67,67,67,0.5);
+}
+.warn_words{
+    margin-top: 20;
+    font-size: 30;
+    color:rgba(67,67,67,0.5);
 }

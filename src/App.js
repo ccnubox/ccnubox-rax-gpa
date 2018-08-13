@@ -184,46 +184,8 @@ class App extends Component {
         resizeMode="contain"
       
         />
-        <View>
-          <Touchable
-            onPress={this.showTermModal}
-            style={[styles.choose_box, styles.middle_box]}
-          >
-            <Text>{this.state.chooseItem}</Text>
-            <Image
-              style={styles.down}
-              source={require("../static/triangle_down.png")}
-              resizeMode="cover"
-            />
-          </Touchable>
-          <View style={styles.term_list}>
-            <Dropdown ref="termModal">
-              <Image
-                style={styles.second_triangle_up}
-                source={require("../static/triangle_up.png")}
-                resizeMode="cover"
-              />
-              <View style={styles.dropdown_list}>
-                 {this.choise.map((text,i) => {
-                   return (
-                    <View
-                    style={styles.select_item}
-                    onClick={() => {
-                      this.hideTermModal(this.choise.indexOf(i));
-                    }}
-                  >
-                    <Text style={styles.item_text}>
-                      {text}
-                    </Text>
-                  </View>
-                   )
-                 })}
-              </View>
-            </Dropdown>
-           
-          </View>
-        </View>
-        <View>
+
+       <View>
           <Touchable
             onPress={this.showYearModal}
             style={[styles.choose_box, styles.top_box]}
@@ -270,6 +232,49 @@ class App extends Component {
            
           </View>
         </View>
+
+
+
+        <View>
+          <Touchable
+            onPress={this.showTermModal}
+            style={[styles.choose_box, styles.middle_box]}
+          >
+            <Text>{this.state.chooseItem}</Text>
+            <Image
+              style={styles.down}
+              source={require("../static/triangle_down.png")}
+              resizeMode="cover"
+            />
+          </Touchable>
+          <View style={styles.term_list}>
+            <Dropdown ref="termModal">
+              <Image
+                style={styles.second_triangle_up}
+                source={require("../static/triangle_up.png")}
+                resizeMode="cover"
+              />
+              <View style={styles.dropdown_list}>
+                 {this.choise.map((text,i) => {
+                   return (
+                    <View
+                    style={styles.select_item}
+                    onClick={() => {
+                      this.hideTermModal(this.choise.indexOf(i));
+                    }}
+                  >
+                    <Text style={styles.item_text}>
+                      {text}
+                    </Text>
+                  </View>
+                   )
+                 })}
+              </View>
+            </Dropdown>
+           
+          </View>
+        </View>
+ 
         <Button style={[styles.choose_box, styles.bottom_box]}>
           <Link
             href= {

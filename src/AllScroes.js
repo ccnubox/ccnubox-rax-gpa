@@ -4,6 +4,7 @@ import Text from "rax-text";
 import styles from "./AllScroes.css";
 import Image from "rax-image";
 
+// let classArr = ["专业必修课","专业选修学分","专业主干"]
  export default class AllScroes extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +31,7 @@ import Image from "rax-image";
         category.forEach(element => {
             sumScroesArr.push({name:element,value:0})
         });
-        console.log(sumScroesArr);
+      
         data.forEach(s => {
            for(let item of sumScroesArr) {
             if(item.name === s.kcxzmc) {
@@ -39,26 +40,29 @@ import Image from "rax-image";
             }
            }
         })
-        console.log(category)
-        this.setState({category})
+        // console.log(sumScroesArr)
+        this.setState({category:sumScroesArr})
     }
     render() {
         let allScroes = this.state.category.reduce((sum , item) => {
             sum += item.value;
             return sum;
         },0)
+        console.log(this.state.category)
         return(
             <View style = {styles.scores_containner}>
                 <View style = {styles.all_scroes_containner}>
                     <Text style = {styles.all_scroes_value}> {allScroes}</Text>
-                    <Text>总学分</Text>
+                    <Text style = {styles.all_name}>总学分</Text>
                 </View>
                 <View style = {styles.single_scroes_out_containner}>
-                    {this.state.category.forEach((item)=>{
+                    {this.state.category.map((item)=>{
+                        return(
                         <View style = {styles.single_scores_containner}>
                             <Text style = {styles.single_scores}>{item.value}</Text>
                             <Text style = {styles.single_subject}>{item.name}</Text>
                         </View>
+                        )
                     })}
                 </View>
                 <Text style = {styles.warn_words}>提示:该学分情况根据信息门户数据统计</Text>

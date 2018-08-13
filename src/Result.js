@@ -33,8 +33,8 @@ const WeightAverage = "平时学分绩";
     };
   }
   componentWillMount() {
-    //this._urlDeal();
-    //this._getBook();
+    this._urlDeal();
+    this._getGrade();
     this.checkAll(true);
     
   }
@@ -98,7 +98,7 @@ const WeightAverage = "平时学分绩";
     });
   }
   // 路由拉取成绩数据
-  _getBook() {
+  _getGrade() {
     let option = {};
     option.xnm = this.state.xnm;
     option.xqm = "";
