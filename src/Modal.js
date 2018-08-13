@@ -7,6 +7,8 @@ import styles from "./Modal.css";
 export default  class GpaModal extends Component {
     
   componentWillReceiveProps(props) {
+    
+     
       if(props.visible) {
           this.showModal();
       }
@@ -17,6 +19,7 @@ export default  class GpaModal extends Component {
 
   hideModal = () => {
     this.refs.modal.hide();
+    this.props.hideModel();
   };
 
   render() {
@@ -38,13 +41,14 @@ export default  class GpaModal extends Component {
           <View style = {styles.modal_containner}>
           <View style = {styles.modal_warn_words}>平均学分绩为:</View>
             <View style = {styles.modal_scroes}>
-              {/* {this.props.weightAverage} */}
-              99.00
+              {this.props.weightAverage}
+             
             </View>
-         
-          <Touchable onPress={this.hideModal} style = {styles.modal_ok}>
+         <View style = {styles.modal_ok}>
+          <Touchable onPress={this.hideModal.bind(this)} >
             确认
           </Touchable>
+          </View>
           </View>
         </Modal>
 

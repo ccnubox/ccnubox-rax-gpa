@@ -189,7 +189,7 @@ class App extends Component {
             onPress={this.showTermModal}
             style={[styles.choose_box, styles.middle_box]}
           >
-            <Text>{this.state.chooseTerm.text}</Text>
+            <Text>{this.state.chooseItem}</Text>
             <Image
               style={styles.down}
               source={require("../static/triangle_down.png")}
@@ -204,16 +204,16 @@ class App extends Component {
                 resizeMode="cover"
               />
               <View style={styles.dropdown_list}>
-                 {this.TermOptions.map((i) => {
+                 {this.choise.map((text,i) => {
                    return (
                     <View
                     style={styles.select_item}
                     onClick={() => {
-                      this.hideTermModal(this.TermOptions.indexOf(i));
+                      this.hideTermModal(this.choise.indexOf(i));
                     }}
                   >
                     <Text style={styles.item_text}>
-                      {i.text}
+                      {text}
                     </Text>
                   </View>
                    )
@@ -229,7 +229,7 @@ class App extends Component {
             style={[styles.choose_box, styles.top_box]}
           >
             <Text>
-              {this.state.value}-{this.state.value + 1} 学年
+              {this.state.value}-{this.state.value + 2} 学年
             </Text>
             <Image
               style={styles.down}
@@ -259,7 +259,7 @@ class App extends Component {
                   }}
                 >
                   <Text style={styles.item_text}>
-                    {i}-{i + 1} 学年
+                    {i}-{i + 2} 学年
                   </Text>
                 </View>
                 )

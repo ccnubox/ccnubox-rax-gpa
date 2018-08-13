@@ -9,7 +9,10 @@ import CheckBox from "rax-checkbox";
 import BoxButton from "../box-ui/common/button/index";
 import GpaServices from "../services/Gpas";
 import GpaModal from "./Modal";
+import AllScroes from "./AllScroes";
 // 将 item 定义成组件
+const Scroes = "已修学分";
+const WeightAverage = "平时学分绩";
  class Result extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +27,8 @@ import GpaModal from "./Modal";
       checkArr : data,
       checkAll: true,
       weightAverage: 0,
-      modalVisble:false
+      modalVisble:false,
+      choise:null
      
     };
   }
@@ -33,6 +37,10 @@ import GpaModal from "./Modal";
     //this._getBook();
     this.checkAll(true);
     
+  }
+  hideModel() {
+   
+    this.setState({modalVisble:false});
   }
   checkAll(status) {
     let newCheckArr = this.state.checkArr;
@@ -51,6 +59,7 @@ import GpaModal from "./Modal";
     return symbol;
   }
   handleChecked(info) {
+   
    let checkArr = this.state.checkArr;
    checkArr[info.id].checked = info.checked;
    this.setState({checkArr})
@@ -60,23 +69,24 @@ import GpaModal from "./Modal";
   handleCheckAll(info) {
      this.checkAll(info.checked);
   }
-  handleCompute() {
+  handleCompute(e) {
     this.setState({modalVisble:true})
     let checkArr = this.state.checkArr;
     let checkedArr = checkArr.filter((subject)=>{
       return subject.checked === true;
     });
-    let sum  =  checkArr.reduce((accumator,subject)=>{
+    let sum  =  checkedArr.reduce((accumator,subject)=>{
         accumator += Number(subject.grade)*Number(subject.credit); 
         return accumator;
     },0);
-    let weight = checkArr.reduce((accumator,subject)=>{
+    let weight = checkedArr.reduce((accumator,subject)=>{
       accumator += Number(subject.credit); 
       return accumator;
      },0);
      let weightAverage = (sum/weight).toFixed(2);
      this.setState({weightAverage});
   }
+ 
   //处理url，分解出参数
   _urlDeal() {
     let param = decodeURI(window.location.href).split("&");
@@ -201,44 +211,41 @@ import GpaModal from "./Modal";
     return (
 
       <View style={styles.App}>
-        
-        <ListView
-          style = {styles.list}
-          // renderFooter={this.listLoading}
-          renderRow={this.listItem}
-          dataSource={this.state.data}
-          // onEndReached={this.handleLoadMore}
-        />
-        
-      
-     <View style = {styles.footer}>
-        <CheckBox 
-        checked = {this.state.checkAll}
-        checkedImage = {require("../static/checked.png")}
-        uncheckedImage = {require("../static/checkbox.png")}
-        containerStyle={{
-          width:49,
-          height:49,
-          marginLeft:40,
-       
+        {this.state.choise === WeightAverage ?
+        <View>
+          <ListView
+            style = {styles.list}
+            // renderFooter={this.listLoading}
+            renderRow={this.listItem}
+            dataSource={this.state.data}
+            // onEndReached={this.handleLoadMore}
+          />
+        <View style = {styles.footer}>
+            <CheckBox 
+            checked = {this.state.checkAll}
+            checkedImage = {require("../static/checked.png")}
+            uncheckedImage = {require("../static/checkbox.png")}
+            containerStyle={{
+              width:49,
+              height:49,
+              marginLeft:40,
           
-        }}
-        onChange={(checked) => {
-          let info  = {
-            checked:checked,
-          }
-          this.handleCheckAll(info)
-        }} />
+              
+            }}
+            onChange={(checked) => {
+              let info  = {
+                checked:checked,
+              }
+              this.handleCheckAll(info)
+            }} />
        
         
       <Text style = {styles.checkAllWords}>全选</Text>
-      <BoxButton style = {styles.compute_button} width = {196}  height = {77} onPress = {event => this.handleCompute} >计算</BoxButton> 
-      <GpaModal weightAverage = {this.state.weightAverage} visible = {this.state.modalVisble} />
-
-
-
-        </View>
-     
+      <BoxButton style = {styles.compute_button} width = {196}  height = {77} onPress = {event => this.handleCompute(event)} >计算</BoxButton> 
+      <GpaModal weightAverage = {this.state.weightAverage} visible = {this.state.modalVisble} hideModel = {this.hideModel.bind(this)} />
+       </View>
+      </View>
+     : <AllScroes data = {this.state.data} />}
       </View>  
       
     );

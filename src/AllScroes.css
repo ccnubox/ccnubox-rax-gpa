@@ -1,0 +1,39 @@
+.scores_containner{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    margin: 0 96;
+    background-color: rgb(239,239,244);
+}
+.all_scroes_containner{
+    margin-top: 70;
+    margin-bottom: 14
+}
+.all_scroes_value{
+    font-size: 46;
+    color: rgb(103,103,250);
+}
+.single_scroes_out_containner{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.single_scores_containner{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.single_scores{
+   
+    font-size: 33;
+    color: rgb(254,183,90);
+
+}
+.single_subject{
+    margin-top: 15;
+    font-size: 23;
+    color:rgb(67,67,67);
+}
