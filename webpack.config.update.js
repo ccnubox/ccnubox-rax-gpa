@@ -1,16 +1,28 @@
 // webpack.config.update.js
+const path = require("path");
+const webpack = require("webpack");
+const package = require("./package.json");
+
 module.exports = function update(webpackConfig) {
-    // webpackConfig.entry["second.bundle"] = [
-    //   "./node_modules/rax-scripts/lib/dev-utils/webpackHotDevClient.js",
-    //   "./node_modules/rax-hot-loader/patch.js",
-    //   "./src/second.js"
-    // ];
-    // webpackConfig.entry["third.bundle"] = [
-    //   "./node_modules/rax-scripts/lib/dev-utils/webpackHotDevClient.js",
-    //   "./node_modules/rax-hot-loader/patch.js",
-    //   "./src/third.js"
-    // ];
-    //console.log("here", webpackConfig);
-    return webpackConfig;
-  };
-  
+  webpackConfig.entry["com.muxistudio.gpa.main"] = [
+    path.resolve(__dirname, "./src/index.js")
+  ];
+  webpackConfig.entry["com.muxistudio.gpa.total"] = [
+    path.resolve(__dirname, "./src/total.js")
+  ];
+  webpackConfig.entry["com.muxistudio.gpa.result"] = [
+    path.resolve(__dirname, "./src/second.js")
+  ];
+  console.log("current env", process.env.NODE_ENV);
+  if (process.env.NODE_ENV === "production") {
+    webpackConfig.plugins[7].options.include = /\.js$/;
+    webpackConfig.plugins.push(
+      new webpack.BannerPlugin({
+        banner: `com.muxistudio.gpa, version ${
+          package.version
+        }, built time: ${Date()}`
+      })
+    );
+  }
+  return webpackConfig;
+};
