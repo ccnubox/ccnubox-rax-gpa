@@ -198,11 +198,19 @@ class App extends Component {
         <Button
           style={[styles.choose_box, styles.btn]}
           onPress={() => {
-            native.push(
-              `ccnubox://gpa.result?type=${this.state.chooseItem}&startYear=${
-                this.state.startYear
-              }&endYear=${this.state.endYear}&sid=${sid}`
-            );
+            if (this.state.chooseItem === "gpa") {
+              native.push(
+                `ccnubox://gpa.result?type=${this.state.chooseItem}&startYear=${
+                  this.state.startYear
+                }&endYear=${this.state.endYear}&sid=${sid}`
+              );
+            } else {
+              native.push(
+                `ccnubox://gpa.total?type=${this.state.chooseItem}&startYear=${
+                  this.state.startYear
+                }&endYear=${this.state.endYear}&sid=${sid}`
+              );
+            }
           }}
         >
           <Text style={{ color: "#fff" }}>计算</Text>

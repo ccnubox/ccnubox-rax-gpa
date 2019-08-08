@@ -7,9 +7,22 @@ import data from "./api_result";
 import CheckBox from "rax-checkbox";
 const native = require("@weex-module/test");
 
+import { parseSearchString } from "../box-ui/util";
 import BoxButton from "../box-ui/common/button/index";
 import GpaServices from "../services/Gpas";
 import GpaModal from "./Modal";
+
+let qd;
+if (window.location.search) {
+  qd = parseSearchString(window.location.search);
+}
+
+if (!qd) {
+  alert("参数缺失错误");
+}
+
+const startYear = qd.startYear[0];
+const endYear = qd.endYear[0];
 
 class Result extends Component {
   constructor(props) {
@@ -83,14 +96,8 @@ class Result extends Component {
     this.setState({ weightAverage });
   }
 
-  //处理url，分解出参数
-  _urlDeal() {
-
-  }
   // 拉取成绩数据
-  _getGrade() {
-
-  }
+  _getGrade() {}
   listItem = (item, index) => {
     let categoryArr = item.category.split("");
     let category = categoryArr[0] + categoryArr[2];
