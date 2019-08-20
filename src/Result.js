@@ -23,16 +23,14 @@ if (!qd) {
 
 const startYear = qd.startYear[0];
 const endYear = qd.endYear[0];
+const sid = qd.sid[0];
+const pwd = qd.pwd[0];
 
 class Result extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      //native获取 start
-      Sid: 2016214322,
-      Jsessionid: "FCEEB506F3532390F878F3A699FD512B",
-      //end
       noMore: false,
       data: data,
       checkArr: data.map(item => {
@@ -47,7 +45,8 @@ class Result extends Component {
     };
   }
   componentWillMount() {
-    this._getGrade();
+    // 从服务端拉取成绩列表
+    // this._getGrade();
   }
   hideModel() {
     this.setState({ modalVisble: false });
@@ -97,7 +96,23 @@ class Result extends Component {
   }
 
   // 拉取成绩数据
-  _getGrade() {}
+  _getGrade() {
+    GpaServices.getGradeList({
+      sid,
+      pwd
+    }).then(res => {
+      this.setState({
+        data: res.data,
+        checkArr: res.data.map(item => {
+          return {
+            checked: true,
+            ...item
+          };
+        })
+      });
+      native.changeLoadingStatus(true);
+    });
+  }
   listItem = (item, index) => {
     let categoryArr = item.category.split("");
     let category = categoryArr[0] + categoryArr[2];

@@ -1,19 +1,17 @@
-import request from '../box-ui/util/request';
+import { Base64 } from "js-base64";
+import request from "../box-ui/util/request";
+
 const GpaService = {
-    getAllScores(option) {
-        let headers =  {
-            Sid  : option.Sid,
-            Bigipserverpool : '89172160.20480.0000',
-            Jsessionid:option.Jsessionid,
-        }
+  getGradeList(option) {
+    const headers = {
+      Authorization: `Basic ${Base64.encode(`${option.sid}:${option.pwd}`)}`
+    };
 
-        return request({
-            headers: header,
-            method:"GET",
-            url:
-            `https://ccnubox.muxixyz.com/api/grade/?xnm=${option.xnm}&xqm=${optino.xqm}`
-        })
-
-    }
-}
-export default GpaService
+    return request({
+      headers,
+      method: "GET",
+      url: "https://ccnubox.muxixyz.com/api/grade/v2"
+    });
+  }
+};
+export default GpaService;

@@ -22,6 +22,7 @@ if (!qd) {
 }
 
 const sid = qd.sid[0];
+const pwd = qd.pwd[0];
 
 class App extends Component {
   constructor(props) {
@@ -202,13 +203,13 @@ class App extends Component {
               native.push(
                 `ccnubox://gpa.result?type=${this.state.chooseItem}&startYear=${
                   this.state.startYear
-                }&endYear=${this.state.endYear}&sid=${sid}`
+                }&endYear=${this.state.endYear}&sid=${sid}&pwd=${pwd}`
               );
             } else {
               native.push(
                 `ccnubox://gpa.total?type=${this.state.chooseItem}&startYear=${
                   this.state.startYear
-                }&endYear=${this.state.endYear}&sid=${sid}`
+                }&endYear=${this.state.endYear}&sid=${sid}&pwd=${pwd}`
               );
             }
           }}

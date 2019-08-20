@@ -8,6 +8,7 @@
     "lint": "eslint --ext .js --ext .jsx ./src"
   },
   "dependencies": {
+    "js-base64": "^2.5.1",
     "rax": "^0.5.4",
     "rax-animated": "^0.6.4",
     "rax-button": "^0.6.4",
