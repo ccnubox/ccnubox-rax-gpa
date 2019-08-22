@@ -75,16 +75,20 @@ class App extends Component {
 
     let date = new Date();
     let currentYear = parseInt(date.getFullYear());
-    let arr = [];
-    for (let i = startYear; i <= currentYear; i++) {
-      arr.push(i);
+    let arrSta = [];
+
+    for (let i = startYear; i <= currentYear+1; i++) {
+      arrSta.push(i);
     }
+    let arrEnd = Array.from(arrSta);
+    arrEnd.shift();
+    arrSta.pop();
 
     this.setState({
-      startYear: arr[0],
-      endYear: arr[arr.length - 1],
-      startYearOptions: arr,
-      endYearOptions: Array.from(arr).reverse()
+      startYear: currentYear-1,
+      endYear: currentYear,
+      startYearOptions: arrSta,
+      endYearOptions: arrEnd
     });
   }
   render() {
@@ -95,7 +99,6 @@ class App extends Component {
           source={require("../static/gpa-search-center-picture.png")}
           resizeMode="contain"
         />
-
         <Touchable
           onPress={this.showYearModal}
           style={[styles.choose_box, styles.select]}

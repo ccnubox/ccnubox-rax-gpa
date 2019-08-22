@@ -45,8 +45,8 @@ class Result extends Component {
     };
   }
   componentWillMount() {
-    // 从服务端拉取成绩列表
-    // this._getGrade();
+     //从服务端拉取成绩列表
+     //this._getGrade();
   }
   hideModel() {
     this.setState({ modalVisble: false });
@@ -120,10 +120,10 @@ class Result extends Component {
       <View style={styles.subject_card}>
         <View style={styles.intro_containner}>
           <View style={styles.subject_category_containner}>
-            <Text style={styles.subject_category}>{category}</Text>
+            <Text style={[styles.subject_category, styles.info_box]}>{category}</Text>
 
-            <Text style={styles.subject_type}>{item.type}</Text>
-            <Text style={styles.subject_credit}>学分{item.credit}</Text>
+            <Text style={[styles.subject_type, styles.info_box]}>{item.type || "无数据"}</Text>
+            <Text style={[styles.subject_credit, styles.info_box]}>学分{item.credit}</Text>
           </View>
           <View style={styles.checkbox_containner}>
             <CheckBox
@@ -146,7 +146,7 @@ class Result extends Component {
           </View>
         </View>
         <View style={styles.subject_detail_containner}>
-          <Text style={styles.subject_name}>{item.course}</Text>
+          <Text numberOfLines={1} style={styles.subject_name}>{item.course}</Text>
           <Text style={styles.subject_goals}>成绩：</Text>
           <Text style={styles.subject_scroes}>{item.grade}</Text>
         </View>
