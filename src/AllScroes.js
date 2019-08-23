@@ -4,19 +4,34 @@ import Text from "rax-text";
 
 import data from "./api_result";
 import styles from "./AllScroes.css";
-import Image from "rax-image";
 
-// let classArr = ["专业必修课","专业选修学分","专业主干"]
+import { parseSearchString } from "../box-ui/util";
+import GpaServices from "../services/Gpas";
+
+let qd;
+if (window.location.search) {
+  qd = parseSearchString(window.location.search);
+}
+
+if (!qd) {
+  alert("参数缺失错误");
+}
+
+const sid = qd.sid[0];
+const pwd = qd.pwd[0];
+
 export default class AllScroes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: []
+      category: [],
+      data: data
     };
   }
   componentWillMount() {
+    //this._getGrade();
     let category = new Set();
-    data.forEach(s => {
+    this.state.data.forEach(s => {
       // category.add({name:s.kcxzmc,value:0});
       category.add(s.kcxzmc);
     });
@@ -29,7 +44,7 @@ export default class AllScroes extends Component {
       sumScroesArr.push({ name: element, value: 0 });
     });
 
-    data.forEach(s => {
+    this.state.data.forEach(s => {
       for (let item of sumScroesArr) {
         if (item.name === s.kcxzmc) {
           item.value += Number(s.credit);
@@ -37,15 +52,28 @@ export default class AllScroes extends Component {
         }
       }
     });
-    // console.log(sumScroesArr)
     this.setState({ category: sumScroesArr });
   }
+
+  /*
+  _getGrade() {
+    GpaServices.getGradeList({
+      sid,
+      pwd
+    }).then(res => {
+      this.setState({
+        data: res.data
+      })
+    });
+  }
+  */
+
   render() {
     let allScroes = this.state.category.reduce((sum, item) => {
       sum += item.value;
       return sum;
     }, 0);
-    console.log(this.state.category);
+    console.log(this.state.category);//
     return (
       <View style={styles.root}>
         <View style={styles.all_scroes_containner}>
