@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
- .vscode/
- ./qiniu-upload.config.js
- build/
- build/*.js
- build
+.vscode/
+./qiniu-upload.config.js
+build/
+build/*.js
+build
