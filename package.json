@@ -1,7 +1,7 @@
 {
   "name": "ccnubox-rax-gpa",
   "author": "rax",
-  "version": "0.0.0",
+  "version": "2.1.0",
   "scripts": {
     "start": "rax-scripts start",
     "build": "rax-scripts build",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "js-base64": "^2.5.1",
-    "rax": "^0.3.5",
+    "rax": "^0.5.4",
     "rax-animated": "^0.6.4",
     "rax-button": "^0.6.4",
     "rax-checkbox": "^0.6.4",
