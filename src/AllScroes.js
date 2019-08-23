@@ -1,6 +1,7 @@
 import { createElement, Component, PropTypes } from "rax";
 import View from "rax-view";
 import Text from "rax-text";
+const native = require("@weex-module/test");
 
 import data from "./api_result";
 import styles from "./AllScroes.css";
@@ -29,51 +30,79 @@ export default class AllScroes extends Component {
     };
   }
   componentWillMount() {
-    //this._getGrade();
-    let category = new Set();
-    this.state.data.forEach(s => {
-      // category.add({name:s.kcxzmc,value:0});
-      category.add(s.kcxzmc);
-    });
-    category = [...category];
-    // let kindSubject = category.reduce((obj,i)=>{
-    //     obj.push({name:i,value:0})
-    // },[]);
-    let sumScroesArr = [];
-    category.forEach(element => {
-      sumScroesArr.push({ name: element, value: 0 });
-    });
-
-    this.state.data.forEach(s => {
-      for (let item of sumScroesArr) {
-        if (item.name === s.kcxzmc) {
-          item.value += Number(s.credit);
-          break;
-        }
-      }
-    });
-    this.setState({ category: sumScroesArr });
+    this._getGrade();
   }
 
-  /*
   _getGrade() {
     GpaServices.getGradeList({
       sid,
-      pwd
-    }).then(res => {
-      this.setState({
-        data: res.data
+      pwd,
+    })
+      .then(res => {
+        if (res.code === 0) {
+          this.setState({
+            data: res.data
+          });
+
+          let category = new Set();
+          res.data.forEach(s => {
+            category.add(s.kcxzmc);
+          });
+          category = [...category];
+
+          let sumScroesArr = [];
+          category.forEach(element => {
+            sumScroesArr.push({ name: element, value: 0 });
+          });
+
+          res.data.forEach(s => {
+            for (let item of sumScroesArr) {
+              if (item.name === s.kcxzmc) {
+                item.value += Number(s.credit);
+                break;
+              }
+            }
+          });
+          this.setState({ category: sumScroesArr });
+          native.changeLoadingStatus(true);
+        } else if (res.code === 20101) {
+          alert(
+            "学号或密码错误，请检查是否更新了 one.ccnu.edu.cn 的密码，并重新登录"
+          );
+          native.reportInsightApiEvent(
+            "getGpaGradeList",
+            "error",
+            res.code + ",Sid: " + sid
+          );
+          native.logout("");
+          native.backToRoot();
+        } else {
+          alert(`服务端错误：${res.code}`);
+          native.reportInsightApiEvent(
+            "getGpaGradeList",
+            "error",
+            res.code + ",Sid: " + sid
+          );
+          native.back();
+        }
       })
-    });
+      .catch(e => {
+        alert(`服务端错误：${JSON.stringify(e)}`);
+        native.reportInsightApiEvent(
+          "getGpaGradeList",
+          "error",
+          JSON.stringify(e)
+        );
+        native.back();
+      });
   }
-  */
 
   render() {
     let allScroes = this.state.category.reduce((sum, item) => {
       sum += item.value;
       return sum;
     }, 0);
-    console.log(this.state.category);//
+    console.log(this.state.category); //
     return (
       <View style={styles.root}>
         <View style={styles.all_scroes_containner}>

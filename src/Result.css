@@ -76,6 +76,7 @@
   justify-content: flex-end;
   margin-left: 40;
   margin-top: 20;
+  align-items: center;
 }
 .subject_name {
   flex: 40;

@@ -8,6 +8,7 @@ const GpaService = {
     };
 
     return request({
+      timeout: 8000, // 这个接口的用时可能会比较长
       headers,
       method: "GET",
       url: "https://ccnubox.muxixyz.com/api/grade/v2"

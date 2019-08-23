@@ -32,21 +32,16 @@ class Result extends Component {
 
     this.state = {
       noMore: false,
-      data: data,
-      checkArr: data.map(item => {
-        return {
-          checked: true,
-          ...item
-        };
-      }),
+      data: [],
+      checkArr: [],
       checkAll: true,
       weightAverage: 0,
       modalVisble: false
     };
   }
   componentWillMount() {
-     //从服务端拉取成绩列表
-     //this._getGrade();
+    //从服务端拉取成绩列表
+    this._getGrade();
   }
   hideModel() {
     this.setState({ modalVisble: false });
@@ -91,6 +86,10 @@ class Result extends Component {
       accumator += Number(subject.credit);
       return accumator;
     }, 0);
+    if (sum === 0 || weightAverage === 0) {
+      this.setState({ weightAverage: 0 });
+      return;
+    }
     let weightAverage = (sum / weight).toFixed(2);
     this.setState({ weightAverage });
   }
@@ -100,18 +99,58 @@ class Result extends Component {
     GpaServices.getGradeList({
       sid,
       pwd
-    }).then(res => {
-      this.setState({
-        data: res.data,
-        checkArr: res.data.map(item => {
-          return {
-            checked: true,
-            ...item
-          };
-        })
+    })
+      .then(res => {
+        if (res.code === 0) {
+          // 筛选出startYear - endYear 之间的成绩数据
+          const filteredData = res.data.filter(course => {
+            return (
+              Number(course.xnm) >= Number(startYear) &&
+              Number(course.xnm) <= Number(endYear)
+            );
+          });
+
+          this.setState({
+            data: filteredData,
+            checkArr: filteredData.map(item => {
+              return {
+                checked: true,
+                ...item
+              };
+            })
+          });
+          native.changeLoadingStatus(true);
+          native.reportInsightApiEvent("getGpaGradeList", "success", "");
+        } else if (res.code === 20101) {
+          alert(
+            "学号或密码错误，请检查是否更新了 one.ccnu.edu.cn 的密码，并重新登录"
+          );
+          native.reportInsightApiEvent(
+            "getGpaGradeList",
+            "error",
+            res.code + ",Sid: " + sid
+          );
+          native.logout("");
+          native.backToRoot();
+        } else {
+          alert(`服务端错误：${res.code}`);
+          native.reportInsightApiEvent(
+            "getGpaGradeList",
+            "error",
+            res.code + ",Sid: " + sid
+          );
+          native.back();
+        }
+      })
+      .catch(e => {
+        alert(`服务端错误：${JSON.stringify(e)}`);
+        native.reportInsightApiEvent(
+          "getGpaGradeList",
+          "error",
+          JSON.stringify(e)
+        );
+        native.back();
       });
-      native.changeLoadingStatus(true);
-    });
   }
   listItem = (item, index) => {
     let categoryArr = item.category.split("");
@@ -120,10 +159,16 @@ class Result extends Component {
       <View style={styles.subject_card}>
         <View style={styles.intro_containner}>
           <View style={styles.subject_category_containner}>
-            <Text style={[styles.subject_category, styles.info_box]}>{category}</Text>
+            <Text style={[styles.subject_category, styles.info_box]}>
+              {category}
+            </Text>
 
-            <Text style={[styles.subject_type, styles.info_box]}>{item.type || "无数据"}</Text>
-            <Text style={[styles.subject_credit, styles.info_box]}>学分{item.credit}</Text>
+            <Text style={[styles.subject_type, styles.info_box]}>
+              {item.type || "无数据"}
+            </Text>
+            <Text style={[styles.subject_credit, styles.info_box]}>
+              学分{item.credit}
+            </Text>
           </View>
           <View style={styles.checkbox_containner}>
             <CheckBox
@@ -146,7 +191,9 @@ class Result extends Component {
           </View>
         </View>
         <View style={styles.subject_detail_containner}>
-          <Text numberOfLines={1} style={styles.subject_name}>{item.course}</Text>
+          <Text numberOfLines={1} style={styles.subject_name}>
+            {item.course}
+          </Text>
           <Text style={styles.subject_goals}>成绩：</Text>
           <Text style={styles.subject_scroes}>{item.grade}</Text>
         </View>

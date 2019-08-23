@@ -54,13 +54,13 @@ class App extends Component {
   };
   hideYearModal = (year, key) => {
     if (key === "startYear") {
-      if (year >= this.state.endYear) {
-        alert("起始学年必须早于结束学年！");
+      if (year > this.state.endYear) {
+        alert("起始学年必须早于或等于结束学年！");
         return;
       }
     } else {
-      if (this.state.startYear >= year) {
-        alert("结束学年必须晚于起始学年！");
+      if (this.state.startYear > year) {
+        alert("结束学年必须晚于或等于起始学年！");
         return;
       }
     }
