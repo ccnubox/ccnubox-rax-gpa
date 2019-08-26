@@ -26,6 +26,7 @@ const endYear = qd.endYear[0];
 const sid = qd.sid[0];
 const pwd = qd.pwd[0];
 
+
 class Result extends Component {
   constructor(props) {
     super(props);
